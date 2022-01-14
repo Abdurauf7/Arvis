@@ -74,6 +74,9 @@ export default {
     }
   },
  created(){
+
+  // Geting all comments from server 
+
    getAllData().then(res=>{
      this.isLoading = true
      if(res.status === 200) {
@@ -84,6 +87,7 @@ export default {
    
  },
   methods:{
+    // Get all comments if search fiels id empty
     getDatas (){
       this.isLoading = true
       getAllData().then(res=>{
@@ -98,7 +102,7 @@ export default {
           }
         })
     },
-
+//  handling delete event 
     handleDelete (props){
       this.isLoading = true
       deleteData(props).then(res=>{
@@ -113,17 +117,25 @@ export default {
         }
       });
     },
+    
+// Getting editing comments data
+
     handleEdit (props){
       this.editModalVisible = true;
       this.editableData = props
     },
+
+// handling close modal
     handleClose () {
       this.editModalVisible = false
       this.editableData = {}
     },
+// handling add comments modal
     handleAddModalClose () {
       this.addModalVisible = false
     },
+
+// handling edit comments 
     handleSubmit () {
       this.isLoading = true
       updateData(this.editableData.id).then(res=>{
@@ -137,12 +149,18 @@ export default {
         }
       })      
     },
+
+// onChage event when editing data
     input(e){
       this.editableData[e.target.name] = e.target.value
     },
+
+// handling open comments modal
     openAddComentsModal(){
       this.addModalVisible = true
     },
+
+// handling add comments
     handleAddComment(props){
       this.isLoading = true
       addData(props).then(res=>{
@@ -158,6 +176,8 @@ export default {
       })
       this.addModalVisible = false
     },
+
+// handling search datas
     handleSearch(){
       this.isLoading = true
       let filteredData = this.data.find(f => f.name.includes(this.searchItem))

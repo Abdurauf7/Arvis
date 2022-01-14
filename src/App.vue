@@ -1,3 +1,5 @@
+<!-- Navigatsiya  -->
+
 <template>
   <Navbar/>
 </template>
