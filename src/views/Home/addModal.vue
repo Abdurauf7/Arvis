@@ -63,6 +63,7 @@
 
 <script>
 
+// Validation package
 import useVuelidate from '@vuelidate/core'
 import { required,email } from '@vuelidate/validators'
 
@@ -87,6 +88,7 @@ export default {
         }
     },
     methods:{
+// handle Adding new commits 
         handleSubmit(){
             let data ={
                 name:this.name,
@@ -105,6 +107,7 @@ export default {
             
             
         },
+// handle closing add modal 
         handleClose (){
             this.handleAddModalClose()
             this.name = ''
@@ -113,5 +116,4 @@ export default {
         }
     }
 }
-
 </script>
