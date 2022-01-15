@@ -17,7 +17,17 @@
           </button>
       </div>
     </div>
-      <Table :data="data" :handleDelete="handleDelete" :handleEdit="handleEdit" />
+      <Table 
+      :data="data" 
+      :handleDelete="handleDelete" 
+      :handleEdit="handleEdit" 
+      :currentPage="currentPage"
+      :total="total"
+      :handlePageChange="handlePageChange"
+      :previousPage="previousPage"
+      :nextPage='nextPage'
+      />
+      
       <EditModal :editModalVisible="editModalVisible" 
       :editableData="editableData" 
       :handleClose="handleClose" 
@@ -52,10 +62,10 @@ import { getAllData,deleteData,updateData,addData,searchData } from '../../servi
 export default {
   name: 'Home',
   components: {
-   Table,
-   EditModal,
-   AddModal,
-   Loading,
+    Table,
+    EditModal,
+    AddModal,
+    Loading,
   },
 
   
@@ -71,6 +81,9 @@ export default {
         email:'',
         body:'',
       },
+        currentPage:1,
+        total:[1,2,3,4,5],
+        limit:10
     }
   },
  created(){
@@ -90,7 +103,7 @@ export default {
     // Get all comments if search fiels id empty
     getDatas (){
       this.isLoading = true
-      getAllData().then(res=>{
+      getAllData(this.currentPage,this.limit).then(res=>{
           if(res.status === 200){
             this.$toast.success("Sucessfully")
             this.isLoading = false
@@ -197,7 +210,38 @@ export default {
       this.isLoading = false
       }
       
+    },
+     handlePageChange(props){
+            this.isLoading = true
+            getAllData(props,this.limit).then(res=>{
+              if(res.status === 200) {
+                this.currentPage = props
+                this.data = res.data
+                this.isLoading = false     
+              }
+            })
+    },
+    previousPage (props) {
+      this.isLoading = true;
+      getAllData(props,this.limit).then(res=>{
+        if(res.status === 200){
+          this.currentPage = props;
+          this.data = res.data;
+          this.isLoading = false
+        }
+      })
+    },
+    nextPage (props) {
+      this.isLoading = true;
+      getAllData(props,this.limit).then(res=>{
+        if(res.status === 200){
+          this.currentPage = props;
+          this.data = res.data;
+          this.isLoading = false
+        }
+      })
     }
+
   }
 }
 </script>

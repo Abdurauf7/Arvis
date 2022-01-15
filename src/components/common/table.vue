@@ -25,11 +25,23 @@
                     </tr>
                 </table>
             </div>
+            <Pagination 
+            :currentPage="currentPage"
+            :total="total"
+            :handlePageChange="handlePageChange"
+            :previousPage="previousPage"
+            :nextPage='nextPage'
+            />
     </div>
 </template>
 
 <script>
+import Pagination from '../common/pagination.vue'
+
 export default {
-   props:['data',"handleDelete","handleEdit"],
+   props:['data',"handleDelete","handleEdit","currentPage","total","handlePageChange",'previousPage','nextPage'],
+   components:{
+       Pagination
+   }
 }
 </script>

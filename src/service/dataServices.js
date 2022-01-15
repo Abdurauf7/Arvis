@@ -2,8 +2,13 @@ import client from "../service/index";
 
 // getting all comments
 
-export const getAllData = () => {
-  return client.get("/comments/?_limit=10");
+export const getAllData = (page = 1, limit = 10) => {
+  return client.get("/comments", {
+    params: {
+      _page: page,
+      _limit: limit
+    }
+  });
 };
 
 // deleting comments by id
